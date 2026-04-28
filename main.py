@@ -108,6 +108,14 @@ class Library:
 
     def find_by_code(self, collection: List[Any], code: int) -> Optional[Any]:
         return next((item for item in collection if item.code == code), None)
+    #next(..., None) → возвращает первый найденный объект. Если генератор пуст (совпадений нет), возвращает None.
+    '''
+    def find_by_code_old(self, collection, code):
+    for item in collection:           1. Перебираем всё подряд
+        if item.code == code:         2. Проверяем условие
+            return item               3. Нашли → сразу выходим из функции
+    return None                       4. Не нашли → возвращаем None
+    '''
 
     def add_author(self, surname: str, name: str = "", secname: str = "") -> Author:
         a = Author(self._next_code(self.authors), surname, name, secname)
@@ -208,23 +216,26 @@ class SQLiteStorage(DataStorage):
 
 # ==================== Демонстрация ====================
 if __name__ == "__main__":
-    DB_FILE = Path("library_modern.db")
+    # DB_FILE = Path("library_modern.db")
 
-    lib = Library()
-    a1 = lib.add_author("Хорн", "Роджер")
-    a2 = lib.add_author("Джонсон", "Чарльз")
-    p1 = lib.add_publisher('Москва "Мир"', "М.: Мир")
-    b1 = lib.add_book("Матричный анализ", p1, 1989, 655)
-    b1.add_author(a1)
-    b1.add_author(a2)
+    # lib = Library()
+    # a1 = lib.add_author("Хорн", "Роджер")
+    # a2 = lib.add_author("Джонсон", "Чарльз")
+    # p1 = lib.add_publisher('Москва "Мир"', "М.: Мир")
+    # b1 = lib.add_book("Матричный анализ", p1, 1989, 655)
+    # b1.add_author(a1)
+    # b1.add_author(a2)
 
-    storage = SQLiteStorage(lib, DB_FILE)
-    storage.write()
+    # storage = SQLiteStorage(lib, DB_FILE)
+    # storage.write()
 
-    lib2 = Library()
-    storage2 = SQLiteStorage(lib2, DB_FILE)
-    storage2.read()
+    # lib2 = Library()
+    # storage2 = SQLiteStorage(lib2, DB_FILE)
+    # storage2.read()
 
-    print("\n📚 Библиографический список из БД:")
-    for book in lib2.books:
-        print(book)
+    # print("\n📚 Библиографический список из БД:")
+    # for book in lib2.books:
+    #     print(book)
+        
+    a = Author(1, "Афанасьев", "Даниил", "Алексеевич")
+    print(a.to_biblio_str())
