@@ -1,3 +1,10 @@
 __pycache__/
 *.pyc
 *.pyo
+_minted/
+*.aux
+*.sty
+*.log
+*.out
+*.synctex.gz
+*.toc
